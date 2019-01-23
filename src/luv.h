@@ -59,9 +59,6 @@
    These are exposed for extensions built with luv
    This allows luv to be used in multithreaded applications.
 */
-LUALIB_API lua_State* luv_state(uv_loop_t* loop);
-/* All libuv callbacks will lua_call directly from this root-per-thread state
-*/
 LUALIB_API uv_loop_t* luv_loop(lua_State* L);
 
 /* This is the main hook to load the library.

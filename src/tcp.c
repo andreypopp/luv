@@ -153,7 +153,7 @@ static int luv_tcp_getpeername(lua_State* L) {
 
 
 static void luv_connect_cb(uv_connect_t* req, int status) {
-  lua_State* L = luv_state(req->handle->loop);
+  lua_State* L = ((luv_req_t*)req->data)->lua_state;
   luv_status(L, status);
   luv_fulfill_req(L, (luv_req_t*)req->data, 1);
   luv_cleanup_req(L, (luv_req_t*)req->data);

@@ -34,7 +34,7 @@ static int luv_new_idle(lua_State* L) {
 }
 
 static void luv_idle_cb(uv_idle_t* handle) {
-  lua_State* L = luv_state(handle->loop);
+  lua_State* L = ((luv_handle_t*)handle->data)->lua_state;
   luv_handle_t* data = (luv_handle_t*)handle->data;
   luv_call_callback(L, data, LUV_IDLE, 0);
 }

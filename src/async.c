@@ -24,7 +24,7 @@ static uv_async_t* luv_check_async(lua_State* L, int index) {
 }
 
 static void luv_async_cb(uv_async_t* handle) {
-  lua_State* L = luv_state(handle->loop);
+  lua_State* L = ((luv_handle_t*)handle->data)->lua_state;
   luv_handle_t* data = (luv_handle_t*)handle->data;
   int n = luv_thread_arg_push(L, (const luv_thread_arg_t*)data->extra, 0);
   luv_call_callback(L, data, LUV_ASYNC, n);

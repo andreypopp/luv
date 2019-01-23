@@ -242,7 +242,7 @@ static int push_fs_result(lua_State* L, uv_fs_t* req) {
 }
 
 static void luv_fs_cb(uv_fs_t* req) {
-  lua_State* L = luv_state(req->loop);
+  lua_State* L = ((luv_req_t*)req->data)->lua_state;
 
   int nargs = push_fs_result(L, req);
   if (nargs == 2 && lua_isnil(L, -nargs)) {

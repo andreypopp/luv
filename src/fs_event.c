@@ -35,7 +35,7 @@ static int luv_new_fs_event(lua_State* L) {
 }
 
 static void luv_fs_event_cb(uv_fs_event_t* handle, const char* filename, int events, int status) {
-  lua_State* L = luv_state(handle->loop);
+  lua_State* L = ((luv_handle_t*)handle->data)->lua_state;
 
   // err
   luv_status(L, status);

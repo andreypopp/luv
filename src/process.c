@@ -30,7 +30,7 @@ static uv_process_t* luv_check_process(lua_State* L, int index) {
 }
 
 static void exit_cb(uv_process_t* handle, int64_t exit_status, int term_signal) {
-  lua_State* L = luv_state(handle->loop);
+  lua_State* L = ((luv_handle_t*)handle->data)->lua_state;
   luv_handle_t* data = (luv_handle_t*)handle->data;
   lua_pushinteger(L, exit_status);
   lua_pushinteger(L, term_signal);
@@ -38,7 +38,7 @@ static void exit_cb(uv_process_t* handle, int64_t exit_status, int term_signal) 
 }
 
 static void luv_spawn_close_cb(uv_handle_t* handle) {
-  lua_State *L = luv_state(handle->loop);
+  lua_State* L = ((luv_handle_t*)handle->data)->lua_state;
   luv_unref_handle(L, (luv_handle_t*)handle->data);
 }
 

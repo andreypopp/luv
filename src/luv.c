@@ -490,10 +490,6 @@ static void luv_handle_init(lua_State* L) {
   lua_setfield(L, LUA_REGISTRYINDEX, "uv_stream");
 }
 
-LUALIB_API lua_State* luv_state(uv_loop_t* loop) {
-  return (lua_State*)loop->data;
-}
-
 // TODO: find out if storing this somehow in an upvalue is faster
 LUALIB_API uv_loop_t* luv_loop(lua_State* L) {
   uv_loop_t* loop;
@@ -547,9 +543,6 @@ LUALIB_API int luaopen_luv (lua_State *L) {
   lua_insert(L, -2);
   lua_rawset(L, LUA_REGISTRYINDEX);
   lua_pop(L, 1);
-
-  // Tell the loop how to find the state.
-  loop->data = L;
 
   luv_req_init(L);
   luv_handle_init(L);

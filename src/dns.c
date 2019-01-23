@@ -61,7 +61,7 @@ static void luv_pushaddrinfo(lua_State* L, struct addrinfo* res) {
 }
 
 static void luv_getaddrinfo_cb(uv_getaddrinfo_t* req, int status, struct addrinfo* res) {
-  lua_State* L = luv_state(req->loop);
+  lua_State* L = ((luv_req_t*)req->data)->lua_state;
   int nargs;
 
   if (status < 0) {
@@ -206,7 +206,7 @@ static int luv_getaddrinfo(lua_State* L) {
 }
 
 static void luv_getnameinfo_cb(uv_getnameinfo_t* req, int status, const char* hostname, const char* service) {
-  lua_State* L = luv_state(req->loop);
+  lua_State* L = ((luv_req_t*)req->data)->lua_state;
 
   int nargs;
 
