@@ -11,6 +11,8 @@ set(LUV_VERSION_MINOR 25)
 set(LUV_VERSION_PATCH 0)
 set(LUV_VERSION ${LUV_VERSION_MAJOR}.${LUV_VERSION_MINOR}.${LUV_VERSION_PATCH})
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 option(BUILD_MODULE "Build as module" ON)
 option(BUILD_SHARED_LIBS "Build shared library" OFF)
 option(WITH_SHARED_LIBUV "Link to a shared libuv library instead of static linking" OFF)
