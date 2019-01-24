@@ -521,31 +521,6 @@ static int loop_gc(lua_State *L) {
 
 LUALIB_API int luaopen_luv (lua_State *L) {
 
-#ifndef LUV_NO_INIT_LOOP
-  uv_loop_t* loop;
-  int ret;
-
-  // Setup the uv_loop meta table for a proper __gc
-  luaL_newmetatable(L, "uv_loop.meta");
-  lua_pushstring(L, "__gc");
-  lua_pushcfunction(L, loop_gc);
-  lua_settable(L, -3);
-
-  loop = (uv_loop_t*)lua_newuserdata(L, sizeof(*loop));
-  ret = uv_loop_init(loop);
-  if (ret < 0) {
-    return luaL_error(L, "%s: %s\n", uv_err_name(ret), uv_strerror(ret));
-  }
-  // setup the metatable for __gc
-  luaL_getmetatable(L, "uv_loop.meta");
-  lua_setmetatable(L, -2);
-  // Tell the state how to find the loop.
-  lua_pushstring(L, "uv_loop");
-  lua_insert(L, -2);
-  lua_rawset(L, LUA_REGISTRYINDEX);
-  lua_pop(L, 1);
-#endif
-
   luv_req_init(L);
   luv_handle_init(L);
   luv_thread_init(L);
