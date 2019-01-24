@@ -521,6 +521,7 @@ static int loop_gc(lua_State *L) {
 
 LUALIB_API int luaopen_luv (lua_State *L) {
 
+#ifndef LUV_NO_INIT_LOOP
   uv_loop_t* loop;
   int ret;
 
@@ -543,6 +544,7 @@ LUALIB_API int luaopen_luv (lua_State *L) {
   lua_insert(L, -2);
   lua_rawset(L, LUA_REGISTRYINDEX);
   lua_pop(L, 1);
+#endif
 
   luv_req_init(L);
   luv_handle_init(L);
